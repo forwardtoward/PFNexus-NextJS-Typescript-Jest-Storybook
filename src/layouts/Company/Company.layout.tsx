@@ -19,6 +19,8 @@ const NAVIGATION_ITEMS = [
   { label: "Team", href: "/team" },
   { label: "Similar Companies", href: "/similar-companies" },
   { label: "Related Companies", href: "/related-companies" },
+  { label: "New Companies", href: "/new-companies" },
+  { label: "Private Companies", href: "/private-companies" },
 ]
 
 const CompanyLayout: React.FC<any> = ({
@@ -137,26 +139,16 @@ const CompanyLayout: React.FC<any> = ({
                     "!border-transparent": !isActive,
                   })}
                   onClick={() => {
-                    if (navigationItem.href === "/") {
+                    const cond = !router.asPath.endsWith(navigationItem.href)
                       router.push({
                         pathname: router.pathname.replace(
                           /\[companyId\].*/,
-                          "[companyId]",
+                          `[companyId]/${navigationItem.href}`,
                         ),
                         query,
                       })
-                    } else {
-                      if (!router.asPath.endsWith(navigationItem.href)) {
-                        router.push({
-                          pathname: router.pathname.replace(
-                            /\[companyId\].*/,
-                            `[companyId]/${navigationItem.href}`,
-                          ),
-                          query,
-                        })
-                      }
                     }
-                  }}
+                  }
                 >
                   {navigationItem.label}
                 </Button>
